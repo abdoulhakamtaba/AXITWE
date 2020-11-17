@@ -1,0 +1,115 @@
+{% extends 'baseshop.html' %}
+{% load static %}
+
+    
+{% block extra_head %}
+
+<style>
+
+/**********Link**********/
+.click-open a:link,
+.click-open a:visited{
+    font-size: 18px;
+    font-weight: 300;
+    padding: 8px 0px;
+    display: block;
+    position: relative;
+    color: rgb(10, 10, 10);
+}
+.click-open a:hover,
+.click-open a:active{
+    font-size: 18px;
+    font-weight: 300;
+    padding: 8px 0px;
+    display: block;
+    position: relative;
+    color: rgb(131, 50, 50);
+}
+/**********icon-arrow**********/
+#icon-arrow{
+    position: absolute;
+    right: 0%;
+    top: 50%;
+    transform: translate(0%, -50%);
+}
+/**********Line**********/
+.click-open {
+    border-top: 1px solid rgb(59, 59, 59);
+    display: list-item;
+}
+
+/***************MEMBERSHIP*******************/
+.membership-partial-width a:link,
+.membership-partial-width a:visited{
+    color: black;
+}
+.membership-partial-width a:hover,
+.membership-partial-width a:active{
+    color: #dcb14a;
+}
+
+/****************SETTINGS********************/
+.ui-input{
+    border-radius: 5px;
+    padding-left: 5px;
+    border-color: rgb(201, 201, 201);
+    border-bottom: 1px solid black;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+.profile_level{
+    background-color: #dcb14a;
+}
+</style>
+
+{% endblock %}
+
+{% block content %}    
+    <div class="app-content" style="cursor: default;">
+    <div class="container main" style="margin-top: 150px; margin-bottom: 100px;">
+        
+            <div class="row lg-g" style=" background-color: rgb(255, 255, 255); padding: 15px;">
+                <div class="col-12" style="margin-right: 20px;">
+                    <h4 style="font-weight: 400;">Compte</h4>
+                    <nav class="ui-nav-stack my-nav">
+                        <ul>
+                            <li class="ui-nav-item click-open">
+                                <a href="{% url 'me-account' %}">
+                                    Mon Compte <i class="fa fa-chevron-right" id="icon-arrow"></i>
+                                </a>
+                            </li>
+                            <li class="ui-nav-item gtm-my-membership-click click-open">
+                                <a href="{% url 'me-membership' %}">Mon Adhésion <i class="fa fa-chevron-right" id="icon-arrow"></i></a>
+                            </li>
+                            <li class="ui-nav-item click-open" style="border-bottom: 1px solid rgb(59, 59, 59);">
+                                <a href="{% url 'me-settings' %}">Parametres <i class="fa fa-chevron-right" id="icon-arrow"></i></a>
+                            </li>
+                            <br>
+                            <!--<div class="is-job-section">
+                                <h4 class="is-inline">Jobs</h4>
+                            </div>
+                            <li class="ui-nav-item gtm-my-resume-click">
+                                <a href="/en/my/resume">My Profile</a>
+                            </li>
+                            <li class="ui-nav-item gtm-cv-database-click">
+                                <a href="/en/talent-search">Talent Search</a>
+                            </li>-->
+                        </ul>
+                    </nav>
+                </div>
+                <div id="my-content" class="col-10" style="margin-left: 50px;">
+                    
+                    {% block extra_block %}
+
+
+
+                    {% endblock %}
+
+                </div>
+            </div>
+        
+    </div>
+    </div>
+
+{% endblock %}

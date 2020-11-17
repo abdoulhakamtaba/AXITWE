@@ -1,0 +1,32 @@
+{% extends 'baseshop.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="col-4 offset-4 mb-5" style="margin-top: 110px; width: 100%;">
+    <h3>{{title }} your items (Optional)</h3>
+    <form action="." method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+
+            <div class="col-4 ml-5">
+                <h3>Color</h3>
+                {{ form|crispy }} <br/>
+            </div>
+            
+            <!--<input type="file" name="images" multiple>-->
+            <div class="col-4 ml-5">
+                <h3>Size</h3>
+                {{ form1|crispy }}
+            </div>
+
+        </div>
+        
+        
+        <button class="btn btn-primary" type="submit" style="margin-left:30%;">Submit</button>
+    </form>
+
+</div>
+
+{% endblock %}

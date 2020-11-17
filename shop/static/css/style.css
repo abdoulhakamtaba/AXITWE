@@ -1,0 +1,40 @@
+
+.link-front-page{
+    background-color: rgb(255, 208, 0);
+    padding: 5px;
+    box-shadow: 10px 10px 8px gray ;
+    margin-left: 20px;
+}
+.link-front-page:link,
+.link-front-page:visited{
+    background-color: rgb(255, 208, 0);
+    padding: 5px;
+    box-shadow: 10px 10px 8px gray;
+}
+.link-front-page:hover,
+.link-front-page:active{
+    background-color: rgb(255, 208, 0);
+    padding: 5px;
+    box-shadow: 10px 10px 8px gray;
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+    .welcome_area .hero-content a {
+      font-size: 21px; } }
+
+@media only screen and (max-width: 768px) {
+    .welcome_area .hero-content a {
+      font-size: 20px; }
+    .welcome_area .hero-content a {
+      font-size: 15px;
+    } }
+
+
+.top_catagory_area .top_cat :hover{
+    box-shadow: 2px 2px 2px rgb(116, 116, 116);
+}
+
+.new_arrivals_area .cities :hover{
+    box-shadow: 2px 2px 2px rgb(116, 116, 116);
+}

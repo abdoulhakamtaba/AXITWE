@@ -1,0 +1,257 @@
+{% extends 'baseshop.html' %}
+{% load static %}
+
+
+{% block extra_head %}
+
+<style>
+
+.all_products_level{
+  background-color: #dcb14a;
+}
+
+</style>
+    
+{% endblock %}
+
+
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+
+
+      <!--  Modal pour suprimer -->
+      <div class="modal fade" id="{{item_detail.slug}}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+
+                <button class="close p-2" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+                <div class="row align-items-stretch">
+                    
+                    <div class="p-4 my-md-6" style="text-align: center; margin: auto 15%;">
+                        <p style="color: black; font-size: 16px; font-weight: 300;"><strong>Etes vous sure de vouloir supprimer {{item_detail.title}}? <i class="fas fa-times" style="color: red;"></i></strong></p>
+                        <div>
+                            <span class="the_btn_thing"><a href="{% url 'delete-product' item_detail.slug %}" class="btn btn-warning">Oui</a></span>
+                            <span class="the_btn_thing"><a href="" class="btn btn-primary">Non</a></span>
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+        </div>
+      </div>
+
+
+      <!--  Modal pour modifier -->
+      <div class="modal fade" id="{{item_detail.slug}}-modifier" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+
+                <button class="close p-2" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+                <div class="row align-items-stretch">
+                    
+                    <div class="p-4 my-md-6" style="text-align: center; margin: auto 15%;">
+                        <p style="color: black; font-size: 16px; font-weight: 300;"><strong>Voulez vous aussi modifier la Categorie de {{item.title}}? <i class="fas fa-pen" style="color: rgb(98, 98, 167);"></i></strong></p>
+                        <div>
+                            <span class="the_btn_thing"><a href="{% url 'category-update' item_detail.slug %}" class="btn btn-warning">Oui</a></span>
+                            <span class="the_btn_thing"><a href="{% url 'update-product-only' item_detail.slug %}" class="btn btn-primary">Non</a></span>
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+        </div>
+      </div>
+
+
+      <div class="row mb-5">
+        <div class="col-lg-6">
+            <!-- PRODUCT SLIDER-->
+            <div class="row m-sm-0">
+                <div class="col-sm-2 p-sm-0 order-2 order-sm-1 mt-2 mt-sm-0">
+                    <div class="owl-thumbs d-flex flex-row flex-sm-column" data-slider-id="1">
+
+                        <div class="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0">
+                          <img class="w-100" src="{{ item_detail.image.url }}" alt="...">
+                        </div>
+
+                        {% for photo in photos %}
+                        <div class="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0">
+                            <img class="w-100" src="{{ photo.image.url }}" alt="...">
+                        </div>
+                        {% endfor %}
+                        
+                    </div>
+                </div>
+                <div class="col-sm-10 order-1 order-sm-2">
+                    <div class="owl-carousel product-slider" data-slider-id="1">
+
+                        <a class="d-block" href="{{ item_detail.image.url }}" data-lightbox="product" title="{{item_detail.title}}">
+                          <img class="img-fluid" src="{{ item_detail.image.url }}" alt="...">
+                        </a>
+
+                        {%  for photo in photos %}
+                        <a class="d-block" href="{{ photo.image.url }}" data-lightbox="product" title="{{item_detail.title}}">
+                            <img class="img-fluid" src="{{ photo.image.url }}" alt="...">
+                        </a>
+                        {% endfor %}
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- PRODUCT DETAILS-->
+        <div class="col-lg-6">
+            <ul class="list-inline mb-2">
+                <li class="list-inline-item m-0"><i class="fa fa-star small text-warning"></i></li>
+                <li class="list-inline-item m-0"><i class="fa fa-star small text-warning"></i></li>
+                <li class="list-inline-item m-0"><i class="fa fa-star small text-warning"></i></li>
+                <li class="list-inline-item m-0"><i class="fa fa-star small text-warning"></i></li>
+                <li class="list-inline-item m-0"><i class="fa fa-star small text-warning"></i></li>
+            </ul>
+            <h1>{{item_detail.title}}</h1>
+            <p class="text-muted lead">${{item_detail.price}}</p>
+            <p class="text-small mb-4" style="font-weight: 500; font-size: 15px;">Veuillez verifier la description de {{item_detail.title}} et les details du vendeurs a la 'Description du produits' et 'Tous les details' situer juste en bas.
+              <hr>
+              Aussi vous pouvez clicker sur le numero whatsapp du vendeur pour l'avoir sur whatsapp ou contactez le directement sur votre whatsapp en prelevant son numero whatsapp. Merci! Merci! Merci!</p>
+
+
+
+            <!--<div class="row align-items-stretch mb-4">
+                
+                <div class="col-sm-4 pl-sm-3">
+                    <a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="{{item_detail.get_add_to_cart_url}}">
+                        Ajoutez au panier
+                    </a>
+                </div>
+            </div>-->
+            <!--<a class="btn btn-link text-dark p-0 mb-4" href="{{item_detail.get_add_to_like_url}}"><i class="fas fa-heart mr-2"></i>Ajoutez a vos j'aime</a>--><br>
+
+
+            <ul class="list-unstyled small d-inline-block" style="margin-left: 15%;">
+                <li class="px-0 py-0 mb-4">
+                  {% if yerp %}
+                    <a href="#{{item_detail.slug}}-modifier" data-toggle="modal" class="btn btn-primary" style="color: black;"><i class="fas fa-pen"></i> Modifiez</a>
+                    <a href="#{{ item_detail.slug }}" data-toggle="modal" class="btn btn-primary" style="color: black;"><i class="fas fa-times"></i> Suprimer</a>
+                  {% endif %}
+                </li>
+                <li class="px-2 py-2 mb-1 bg-white"><strong class="text-uppercase">Numero d'appel:</strong><span class="ml-2 text-muted"> {{item_detail.call_number}} </span></li>
+                <li class="px-2 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Category:</strong><a class="reset-anchor ml-2" href="#">{{cat}} / {{sub_cat}}</a></li>
+                {% if item_detail.whatsapp_number %}    
+                <li class="px-2 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Numero Whatsapp:</strong><a class="reset-anchor ml-2" href="https://wa.me/00229{{item_detail.whatsapp_number}}/">+229 {{ item_detail.whatsapp_number }}</a></li>
+                {% endif %}
+            </ul>
+        </div>
+      </div>
+      <!-- DETAILS TABS-->
+      <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+        <li class="nav-item"><a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description du produits</a></li>
+        <li class="nav-item"><a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Tous les details</a></li>
+      </ul>
+      <div class="tab-content mb-5" id="myTabContent">
+        <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+          <div class="p-4 p-lg-5 bg-white">
+            <h6 class="text-uppercase">Description du produit </h6>
+            <p class="text-muted text-small mb-0">{{item_detail.description}}</p>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+
+
+            <div class="p-4 p-lg-5 bg-white">
+              <div style="display: inline-block;">
+                {% if usernamo.username %}
+                <p><strong>Nom du vendeur:</strong> {{usernamo.username}}</p>
+                {% else %}
+                <p><strong>Nom du vendeur:</strong> {{usernamo.user.username}}</p>
+                {% endif %}
+                <p><strong>Position:</strong> {{item_detail.location}}</p>
+              </div>
+              <div style="display: inline-block; margin-left: 15%;">
+
+                {% if item_detail.negotiable %}
+                    <p><strong>Negotiable:</strong> Oui</p>
+                {% else %}
+                  <p><strong>Negotiable:</strong> Non</p>
+                {% endif %}
+                
+
+                {% if item_detail.new %}
+                  <p><strong>Condition:</strong> Neuf</p>
+                {% else %}
+                  <p><strong>Condition:</strong> Deuxieme main</p>
+                {% endif %}
+                
+              </div>
+              <div style="display: inline-block; margin-left: 15%;">
+                <p><strong>Category:</strong> Electronics</p>
+                <p><strong>Date du poste:</strong> Il y a {{item_detail.timestamp|timesince}}</p>
+              </div>
+                
+            </div>
+            
+        </div>
+      </div>
+      <!-- RELATED PRODUCTS-->
+      <h2 class="h5 text-uppercase mb-4">D'autres produits relier</h2>
+      <div class="row">
+
+
+        <!-- PRODUCT-->
+        {% for every_product, imos in querysetos.items %}
+
+
+        <div class="col-lg-3 col-sm-6">
+          <div class="product text-center skel-loader">
+            <div class="d-block mb-3 position-relative"><a class="d-block" href="{{every_product.get_absolute_url}}"><img class="img-fluid w-100" style="height: 200px;" src="{{ every_product.image.url }}" alt="..."></a>
+              <!--<div class="product-overlay">
+                <ul class="mb-0 list-inline">
+                  <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="{{item_detail.get_add_to_like_url}}"><i class="far fa-heart"></i></a></li>
+                  <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="{{item_detail.get_add_to_cart_url}}">Ajoute au panier</a></li>
+                  <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#{{every_product.slug}}" data-toggle="modal"><i class="fas fa-expand"></i></a></li>
+                </ul>
+              </div>-->
+            </div>
+            <h6> <a class="reset-anchor" href="{{every_product.get_absolute_url}}" style="font-weight: 500; font-size: 20px;">{{every_product.title}}</a></h6>
+            <p class="small text-muted" style="font-size: 15px;">${{every_product.price}}</p>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+
+
+<script>
+
+    $(function(){
+        /* ===============================================================
+            PRODUCT SLIDER
+        =============================================================== */
+        $('.product-slider').owlCarousel({
+            items: 1,
+            thumbs: true,
+            thumbImage: false,
+            thumbsPrerendered: true,
+            thumbContainerClass: 'owl-thumbs',
+            thumbItemClass: 'owl-thumb-item'
+        });
+    })
+
+</script>
+
+{% endblock extra_scripts %}

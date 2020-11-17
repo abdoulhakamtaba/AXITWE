@@ -1,0 +1,40 @@
+{% extends 'my_account.html' %}
+{% load static %}
+
+{% block extra_block %}
+
+
+<div class="row">
+    <h2 class="is-main" style="border-bottom: 1px solid black; font-weight: 400;">Parametres</h2>
+</div>
+
+
+<div class="row my-settings">
+    <div class="col-8">
+        <h3 style="font-weight: 500;">Changez detailles</h3>
+        
+        <div class="ui-field is-normal is-filled">
+            <a href="{% url 'account_change_password' %}" style="margin-bottom: 5px;" class="btn btn-primary">Changez mots de passe</a>
+            <a href="{% url 'user_name' %}" style="margin-bottom: 5px;" class="btn btn-primary">Changez nom d'utilisateur</a>
+        </div>
+
+        <!--<div style="margin-top: 15px;">
+            <label for="profile-name" class="ui-label">Change Password: </label>
+            <input id="profile-name" name="profile-name" type="text" class="ui-input" value="Pymail Pymail">
+        </div>-->
+        
+        
+            
+        <div style="margin-top: 15px; margin-bottom: 15px;">
+            <a class="btn btn-danger" href="{% url 'account_logout' %}"><span class="label">Log out</span>
+                <span class="spin"></span>
+            </a>
+        </div>
+    </div>
+    
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends 'baseshop.html' %}
+{% load static %}
+
+{% block extra_head %}
+
+<style>
+/**********Link**********/
+.click-open a:link,
+.click-open a:visited{
+    font-size: 18px;
+    font-weight: 300;
+    padding: 8px 0px;
+    padding-left: 5px;
+    display: block;
+    position: relative;
+    color: rgb(10, 10, 10);
+    background-color: #f5f5f5; 
+    margin-bottom: 8px;
+}
+.click-open a:hover,
+.click-open a:active{
+    font-size: 18px;
+    font-weight: 300;
+    padding: 8px 0px;
+    display: block;
+    position: relative;
+    color: rgb(0, 0, 0);
+    box-shadow: 1px 1px 3px rgb(90, 90, 90);
+    padding-left: 5px;
+}
+/**********icon-arrow**********/
+#icon-arrow{
+    position: absolute;
+    right: 0%;
+    top: 50%;
+    transform: translate(0%, -50%);
+}
+/**********Line**********/
+.click-open {
+    border-top: 1px solid rgb(104, 104, 104);
+    display: list-item;
+}
+.click-open:last-child {
+   
+}
+.sell_level{
+    background-color: #dcb14a;
+}
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+    <div class="container mb-5" style="margin-top: 10%; background-color: rgb(255, 255, 255);">
+        <div class="row">
+            <div class="col-12">
+                {% if sell %}
+                <h2 class="is-main" style="font-weight: 200;">Vendre un produit</h2>
+                {% endif %}
+                {% if update %}
+                <h2 class="is-main" style="font-weight: 200;">Modifier category</h2>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            
+            <div class="col-5">
+                
+                <ul>
+                    <p>1. Selectionne une categorie</p>
+                    {% for cat in categories %}
+                    <br>
+                    <li style="width: 100%;" class="click-open">
+                        {% if sell %}
+                        <a href="{% url 'sub-category' cat %}"><span>{{cat}}</span><i class="fa fa-chevron-right" id="icon-arrow"></i></a>
+                        {% endif %}
+
+                        {% if update %}
+                        <a href="{% url 'sub-category-update' cat it_slug %}"><span>{{cat}}</span><i class="fa fa-chevron-right" id="icon-arrow"></i></a>
+                        {% endif %}                        
+                        
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="show-me col-5">
+                <ul>
+                    {% if subcategorie %}
+                    <p>Selectionne un sous category</p>
+                    {% endif %}
+
+                    {% for subcat in subcategorie %}
+                    <br>
+                    <li style="width: 100%;" class="click-open">
+                        
+                        {% if sell %}
+                        <a href="{% url 'sell' subcat %}"><span>{{subcat}}</span> <i class="fa fa-chevron-right" id="icon-arrow"></i></a>
+                        {% endif %}
+
+                        {% if update %}
+                        <a href="{% url 'update-product' it_slug subcat %}"><span>{{subcat}}</span> <i class="fa fa-chevron-right" id="icon-arrow"></i></a>
+                        {% endif %}
+                        
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+        
+
+{% endblock %}
+
+{% block extra_scripts %}
+
+<script>
+    var clickopen = document.querySelector('.click-open');
+
+    electro.addEventListener('click', function(){
+        console.log('yerp')
+        sub_electro.style.display = 'block'
+    })
+
+</script>
+
+{% endblock extra_scripts %}

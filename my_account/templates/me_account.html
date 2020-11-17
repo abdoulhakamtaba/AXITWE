@@ -1,0 +1,151 @@
+{% extends 'my_account.html' %}
+{% load static %}
+
+{% block extra_block %}
+
+<div class="row" style="width: 100%;">
+
+    {% if usernamo.username %}
+    <h3 style="border-bottom: 1px solid black; font-weight: 400;">{{usernamo.username}}</h3>
+    {% else %}
+    <h3 style="border-bottom: 1px solid black; font-weight: 400;">{{usernamo.user.username}}</h3>
+    {% endif %}
+</div>
+<script>window.APIDATA.favorites = [];</script>
+<!---->
+
+{% if item.exists %}
+<div class="row">
+    
+    <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
+        
+        <div class="row mt-3">
+    
+        <!-- PRODUCT-->
+        {% for item in items %}
+    
+    
+        <!--  Modal pour suprimer -->
+        <div class="modal fade" id="{{item.slug}}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+
+                    <button class="close p-2" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+                    <div class="row align-items-stretch">
+                        
+                        <div class="p-4 my-md-6" style="text-align: center; margin: auto 15%;">
+                            <p style="color: black; font-size: 16px; font-weight: 300;"><strong>Etes vous sure de vouloir supprimer {{item.title}}? <i class="fas fa-times" style="color: red;"></i></strong></p>
+                            <div>
+                                <span class="the_btn_thing"><a href="{% url 'delete-product' item.slug %}" class="btn btn-warning">Oui</a></span>
+                                <span class="the_btn_thing"><a href="" class="btn btn-primary">Non</a></span>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+        <!--  Modal pour modifier -->
+        <div class="modal fade" id="{{item.slug}}-modifier" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+
+                    <button class="close p-2" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+                    <div class="row align-items-stretch">
+                        
+                        <div class="p-4 my-md-6" style="text-align: center; margin: auto 15%;">
+                            <p style="color: black; font-size: 16px; font-weight: 300;"><strong>Voulez vous aussi modifier la Categorie de {{item.title}}? <i class="fas fa-pen" style="color: rgb(98, 98, 167);"></i></strong></p>
+                            <div>
+                                <span class="the_btn_thing"><a href="{% url 'category-update' item.slug %}" class="btn btn-warning">Oui</a></span>
+                                <span class="the_btn_thing"><a href="{% url 'update-product-only' item.slug %}" class="btn btn-primary">Non</a></span>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </div>
+            </div>
+        </div>
+        
+    
+    
+        <div class="col-lg-6 col-sm-6">
+            <div class="product text-center">
+                <div class="mb-3 position-relative">
+                    <!--<div class="badge text-white badge-primary" style="font-size: 15px; font-weight: 300;">New</div>-->
+                    <a class="d-block" href="{{item.get_absolute_url}}">
+                        <img class="img-fluid w-100 reg_img" src="{{ item.image.url }}" alt="...">
+                    </a>
+                    <!--<div class="product-overlay">
+                    <ul class="mb-0 list-inline">
+                        <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart"></i></a></li>
+                        <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="cart.html">Add to cart</a></li>
+                        <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#productView" data-toggle="modal"><i class="fas fa-expand"></i></a></li>
+                    </ul>
+                    </div>-->
+                </div>
+                <h6> 
+                    <a class="reset-anchor reg_title" href="{{item.get_absolute_url}}" style="font-weight: 500; font-size: 20px;">{{item.title}}</a>
+                </h6>
+                <p class="small text-muted" style="font-size: 15px;">${{ item.price }}</p>
+
+                
+                <div class="the_btn_thing" style="margin-bottom: 5px;"><a href="#{{item.slug}}-modifier" data-toggle="modal" class="btn btn-primary" style="padding: 6px;">Modifier</a></div>
+                
+                <div class="the_btn_thing" style="margin-bottom: 5px;"><a href="#{{ item.slug }}" data-toggle="modal" class="btn btn-primary" style="padding:6px;">Suprimer</a></div>
+
+            </div>
+        </div>
+        {% endfor %}
+        
+        
+        </div>
+        <!-- PAGINATION-->
+        <nav aria-label="navigation" style="margin-left: 45%;">
+            <ul class="pagination mt-50 mb-70">
+                {% if items.has_previous %}
+                <li class="page-item"><a class="page-link" href="?{{page_request_var}}={{ items.previous_page_number }}"><i class="fa fa-angle-left"></i></a></li>
+                {% endif %}
+                <li class="page-item"><a class="page-link" href="?{{page_request_var}}={{ items.number }}">{{ items.number }}</a></li>
+                {% if items.has_next %}
+                <li class="page-item"><a class="page-link" href="?{{page_request_var}}={{ items.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+{% else %}
+
+<div class="row">
+
+    <div class="no-item-img" style="margin-right: 10px;"><img width="95" height="63" srcset="https://w.tonaton-st.com/dist/img/all/shop/empty-1x-6561cc5e.png 1x, https://w.tonaton-st.com/dist/img/all/shop/empty-2x-e92ec03a.png 1.3x">
+    </div>
+    <div class="no-items-content">
+        <h4>Vous n'avez pas encore d'annonces.</h4>
+        <p>Cliquez sur 'Publier une annonce maintenant!' Bouton pour publier votre annonce.</p>
+    </div>
+    
+</div>
+<div class="row mt-5">
+    <a class="btn btn-primary post" href="{% url 'category' %}">Publiez votre annonce maintenant!</a>
+</div>
+
+{% endif %}
+
+
+
+<!--<script>gtmData.push({"User":[{"Id":"5ecd43f95cb0da00345517bf","Name":"Pymail Pymail","Language":"EN","Phone Number":"+233507350846","Platform":"Desktop Web"}]});
+</script>-->
+
+{% endblock %}

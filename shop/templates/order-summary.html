@@ -1,0 +1,131 @@
+{% extends 'baseshop.html' %}
+{% load static %}
+
+
+{% block extra_head %}
+
+<style>
+
+    .cont-shop:link,
+    .cont-shop:visited{
+        font-weight: 400;
+        font-size: 15px;
+    }
+
+    .cont-shop:hover,
+    .cont-shop:active{
+        font-weight: 400;
+        font-size: 15px;
+    }
+
+    th{
+        font-weight: 500;
+    }
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<!--Main layout-->
+<main style="margin-bottom: 25px; margin-top: 120px;">
+    <div class="container">
+
+        <div class="table-responsive text-nowrap" style="background-color: rgb(255, 255, 255); padding: 15px;">
+            <h2 style="font-weight: 400;" class="mb-4">Votre Panier</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                    <th scope="col">#</th>
+                  <th scope="col">Item title</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Total Item Price</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+
+                {% for order_item in object.items.all %}
+
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ order_item.item.title }}</td>
+                        
+                        
+                        <td>{{ order_item.item.price }}</td>
+                        <td>
+
+                            <a href="{% url 'remove-single-item-from-cart' order_item.item.slug %}"><i class="fas fa-minus mr-2"></i></a>
+                            {{ order_item.quantity }}
+                            <a href="{% url 'add-to-cart' order_item.item.slug %}"><i class="fas fa-plus ml-2"></i></a>
+                        </td>
+                            
+                        <td>
+                            {% if order_item.item.discount_price %}
+                                ${{ order_item.total_discount_price }}
+                                <span class="badge badge-primary">Saving ${{ order_item.saved_cash }}</span>
+                                
+                            {% else %}
+                                {{ order_item.total_item_price }}
+                            {% endif %}
+
+                            <a style="color: red;" href="{% url 'remove-from-cart' order_item.item.slug %}">
+                                <i class="fas fa-trash float-right"></i>
+                            </a>
+                            
+                        </td>
+                        
+                    </tr>
+                    
+                    
+                {% empty %}
+                    <tr>
+                        <td colspan="5">Your cart is empty</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+    
+                            <a class="btn btn-primary float-right cont-shop" href="">Continue Shopping</a>
+
+                        </td>
+                    </tr>
+                {% endfor %}
+                
+                {% if object.coupon %}
+                    <tr>
+                        <td colspan="4"><b>Coupon</b></td>
+                        <td>-${{ object.coupon.amount }}</td>
+                    </tr>
+                {% endif %}
+
+                {% if object.get_total_price %}
+                <tr>
+                    <td colspan="4"><b>Order Total</b></td>
+                    <td>${{ object.get_total_price }}</td>
+                </tr>
+                
+                <tr>
+                    <td colspan="5">
+                        <a class="btn btn-warning float-right ml-2" href="">Proceed to checkout</a>
+
+                        <a class="btn btn-primary float-right" href="">Continue Shopping</a>
+                    </td>
+                </tr>
+                {% endif %}
+
+              </tbody>
+            </table>
+          
+        </div>
+
+    </div>
+</main>
+<!--Main layout-->
+
+
+
+
+{% endblock %}

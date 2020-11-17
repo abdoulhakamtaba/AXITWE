@@ -1,0 +1,253 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>AXITWE - Achetez et Vendez</title>
+    {% block extra_head %}
+    {% endblock %}
+    <!-- Favicon  -->
+    <link rel="icon" href="{%static 'img/core-img/axitwe-devo.png' %}">
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" href="{%static 'css/style.css' %}">
+    <link rel="stylesheet" href="{%static 'css/core-style.css' %}">
+
+    <!--font awesome-->
+    <link rel="stylesheet" href="{%static 'css/font-awesome.min.css' %}">
+
+    <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <style>
+        .country-select-flag{
+            display: none;
+        }
+        
+        @media only screen and (max-width: 767px) {
+            .disappear {
+                display: none
+            } 
+        }
+
+        
+    </style>
+
+</head>
+
+<body>
+    
+    <!-- ##### Header Area Start ##### -->
+    <header class="header_area">
+        <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
+            <!-- Classy Menu -->
+            <nav class="classy-navbar" id="axitweNav">
+                <!-- Logo -->
+                <a class="nav-brand" href="{% url 'shop-home' %}"><img src="{%static 'img/core-img/axitwe-devo.png' %}" width="90px" alt=""></a>
+                <!-- Navbar Toggler -->
+                <div class="classy-navbar-toggler">
+                    <span class="navbarToggler"><span></span><span></span><span></span></span>
+                </div>
+                <!-- Menu -->
+                <div class="classy-menu">
+                    <!-- close btn -->
+                    <div class="classycloseIcon">
+                        <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                    </div>
+                    <!-- Nav Start -->
+                    <div class="classynav">
+                        <ul>
+
+                            <li><a href="{% url 'shop-home' %}" style="color: black;" class="home_level">Home</a></li>
+                            <li><a href="{% url 'products-page' %}" style="color: black;" class="all_products_level">Tous Produits</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    
+                    <!-- Nav End -->
+                </div>
+            </nav>
+
+            <!-- Header Meta Data -->
+            <div class="header-meta d-flex clearfix justify-content-end">
+                <!-- Search Area -->
+                <div class="search-area">
+                    <form action="{% url 'search' %}">
+                        
+                        <input type="search" name="q" id="headerSearch" placeholder="Rechercher...">
+                        <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </form>
+                </div>
+                
+                <!-- User Login Info -->
+                <div class="user-login-info">
+                    <a href="{% url 'me-account' %}" class="profile_level">
+                        <img src="{%static 'img/core-img/user.svg' %}" alt=""> 
+                    </a>
+                </div>
+
+
+                <div class="cart-area">
+                    <a href="{% url 'category' %}" id="axitweCartBtn" style="color: black;" class="sell_level">Vendre</a>
+                </div>
+
+                {% if request.user.is_authenticated %}
+                    <!-- Logout -->
+                    <div class="cart-area">
+                        <a href="{% url 'account_logout' %}" style="color: black;" id="axitweCartBtn">Deconnection</a>
+                    </div>
+                {% else %}
+                    <!-- login -->
+                    <div class="cart-area">
+                        <a href="{% url 'account_login' %}" style="color: black;" id="axitweCartBtn">Connection</a>
+                    </div>
+                    <!-- sign up -->
+                    <div class="cart-area">
+                        <a href="{% url 'account_signup' %}" style="color: black;" id="axitweCartBtn">S'inscrire</a>
+                    </div>
+                
+                {% endif %}
+
+                
+            </div>
+            
+
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+
+
+    {% block content %}
+
+    {% endblock %}
+
+
+
+
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer_area clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-lg-4 footer-about wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
+                    <img class="logo-footer" width="50px" src="{% static 'img/core-img/axitwe-logo.png' %}" alt="logo-footer" data-at2x="assets/img/axitwe-logo.png">
+                    <p>
+                        Nous sommes une jeune entreprise toujours à la recherche d'idées nouvelles et créatives pour vous aider avec nos produits dans votre travail quotidien.
+                    </p>
+                    <p><a href="#" style="color: rgb(141, 141, 141);">Axitwe-Ton marcher preferer</a></p>
+                </div>
+                <div class="col-md-4 col-lg-4 offset-lg-1 footer-contact wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">
+                    <h3 style="color: rgb(141, 141, 141); font-weight: 300;">Contact</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Via Calavi, Kpota</p>
+                    <p><i class="fas fa-phone"></i> Phone: (+229) 00000000</p>
+                    <p><i class="fas fa-envelope"></i> Email: <a href="mailto:axitwe@gmail.com" style="color: rgb(141, 141, 141);">axitwe@gmail.com</a></p>
+                </div>
+                <div class="col-md-4 col-lg-3 footer-social wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
+                    <h3 style="color: rgb(141, 141, 141); font-weight: 300;">Suivez nous</h3>
+                    <p>
+                        <a href="#" style="color: rgb(141, 141, 141); margin-right: 10px;"><i class="fab fa-facebook"></i></a> 
+                        <a href="#" style="color: rgb(141, 141, 141); margin-right: 10px;"><i class="fab fa-twitter"></i></a> 
+                        <a href="#" style="color: rgb(141, 141, 141); margin-right: 10px;"><i class="fab fa-google-plus-g"></i></a> 
+                        <a href="#" style="color: rgb(141, 141, 141); margin-right: 10px;"><i class="fab fa-instagram"></i></a> 
+                        <a href="#" style="color: rgb(141, 141, 141); margin-right: 10px;"><i class="fab fa-pinterest"></i></a>
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="row mt-5">
+                <div class="col-md-12 text-center">
+                    <p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> AXITWE "Le marché facile et simple". Tous droits réservés.
+                    </p>
+                    <p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Pour vos sites web contactez nous aux : +229 61961780 ou abdoulhakamtaba@gmail.com
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- jQuery (Necessary for All JavaScript Plugins) -->
+    <script src="{%static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
+    <!-- Popper js -->
+    <script src="{%static 'js/popper.min.js' %}"></script>
+    <!-- Bootstrap js -->
+    <script src="{%static 'js/bootstrap.min.js' %}"></script>
+    <!-- Plugins js -->
+    <script src="{%static 'js/plugins.js' %}"></script>
+    <!-- Classy Nav js -->
+    <script src="{%static 'js/classy-nav.min.js' %}"></script>
+    <!-- Active js -->
+    <script src="{%static 'js/active.js' %}"></script>
+
+    <a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647;"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+    <!----------------------NNEEEEEEEEEWWWWWW----------->
+    <script src="{% static 'js/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/vendor/lightbox2/js/lightbox.min.js' %}"></script>
+    <script src="{% static 'js/vendor/nouislider/nouislider.min.js' %}"></script>
+    <script src="{% static 'js/vendor/bootstrap-select/js/bootstrap-select.min.js' %}"></script>
+    <script src="{% static 'js/vendor/owl.carousel2/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js" integrity="sha512-Eak/29OTpb36LLo2r47IpVzPBLXnAMPAVypbSZiZ4Qkf8p/7S/XRG5xp7OKWPPYfJT6metI+IORkR5G8F900+g==" crossorigin="anonymous"></script>
+    <script>
+        new WOW().init();
+    </script>
+
+    {% block extra_scripts %}
+    {% endblock extra_scripts %}
+
+</body>
+
+</html>
+
+{% comment %}
+
+The MIT License (MIT)
+
+Copyright (c) 2016 Thomas Grainger.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+
+Portions of this wow.js Software may utilize the following copyrighted material, the use of which is hereby acknowledged.
+
+WOW: https://github.com/matthieua/WOW/tree/20848c410fe32d161c2330e1d261b59512094f81
+
+Copyright (C) 2014; Matthieu Aussaguel
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+{% endcomment %}

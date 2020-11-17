@@ -1,0 +1,21 @@
+{% extends 'my_account.html' %}
+{% load static %}
+
+{% block extra_block %}
+
+<div class="row" style="width: 100%;">
+    <h3 style="border-bottom: 1px solid black; font-weight: 400;">Mon Adhésion</h3>
+</div>
+
+<div class="no-membership">
+    <div class="shop-image"></div>
+    <h3 style="font-weight: 500;"> Vous etes membre de AXITWE</h3>
+
+</div>
+
+<div class="membership-partial-width">
+    <h5 style="font-weight: 300;">
+        Bienvenue sur AXITWE, vous pouvez-y poster vos produits gratuitement et trouver des acheteurs.
+    </h5>
+    <script>gtmData.push({"Membership Status":"Non Member"});</script></div>
+{% endblock %}

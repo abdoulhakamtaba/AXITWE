@@ -1,0 +1,94 @@
+{% extends 'baseshop.html' %}
+{% load static %}
+
+{% block extra_head %}
+
+<style>
+
+    .cont-shop:link,
+    .cont-shop:visited{
+        font-weight: 400;
+        font-size: 15px;
+    }
+
+    .cont-shop:hover,
+    .cont-shop:active{
+        font-weight: 400;
+        font-size: 15px;
+    }
+
+    th{
+        font-weight: 500;
+    }
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<!--Main layout-->
+<main style="margin-bottom: 25px; margin-top: 120px;">
+    <div class="container">
+
+        <div class="table-responsive text-nowrap" style="background-color: rgb(255, 255, 255); padding: 15px;">
+            <h2 style="font-weight: 400;">Like Summary</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                    <th scope="col">#</th>
+                  <th scope="col">Item title</th>
+                  <!--
+                  <th scope="col">Size</th>
+                  <th scope="col">Color</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Total Item Price</th>-->
+                  
+                </tr>
+              </thead>
+              <tbody>
+
+                {% for like_item in object.likes.all %}
+
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>
+                            {{ like_item.item.title }}
+                        </td>
+                        <td>
+                            <a style="color: red;" href="{{ like_item.item.get_remove_from_like_url }}">
+                                <i class="fas fa-trash float-right"></i>
+                            </a>
+                        </td>
+                        
+                    </tr>
+                    
+                    
+                {% empty %}
+                    <tr>
+                        <td colspan="5">Your likes is empty</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+    
+                            <a class="btn btn-primary float-right cont-shop" href="">Continue Shopping</a>
+
+                        </td>
+                    </tr>
+                {% endfor %}
+                
+                
+              </tbody>
+            </table>
+          
+        </div>
+
+    </div>
+</main>
+<!--Main layout-->
+
+
+
+
+{% endblock %}

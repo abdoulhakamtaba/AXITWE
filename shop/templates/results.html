@@ -1,0 +1,206 @@
+{% extends 'baseshop.html' %}
+{% load static %}
+
+{% block extra_head %}
+
+<style>
+
+
+.page-holder a:link,
+.page-holder a:visited{
+    font-weight: 300;
+    font-size: 16px;
+
+}
+.page-holder a:hover,
+.page-holder a:active{
+    font-weight: 300;
+    font-size: 16px;
+    color: #dcb14a;
+    
+}
+
+
+</style>
+    
+{% endblock %}
+
+{% block content %}
+
+
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb_area bg-img" style="background-image: url(/static/img/bg-img/breadcumb.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="page-title text-center">
+                        <h2>Les resultats de votre recherche </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+
+
+
+    <div class="page-holder">
+
+        <div class="container">
+            
+            <section class="py-5">
+            <div class="container p-0">
+                <div class="row">
+                    <!-- SHOP SIDEBAR-->
+                    <div class="col-lg-3 order-2 order-lg-1">
+
+                        <!--------------CATEGORY-------------->
+                        <div style="display: block;">
+                            <h5 class="text-uppercase mb-4" style="font-weight: 400; border-bottom: 1px solid black;">Categories</h5>
+                            
+                            <ul id="menu-content2" class="menu-content collapse show">
+                                <!-- Single Item -->
+                                <li data-toggle="collapse" data-target="#all" style="margin-bottom: 10px;">
+                                    <a href="{% url 'products-page' %}">All</a>
+                                </li>
+
+                                {% for cat, lenghts in catos.items %}
+                                <li data-toggle="collapse" data-target="#clothing" style="margin-bottom: 10px;">
+                                    <a href="{% url 'products-page-detail' cat select_city %}" class="{{cat}}">{{cat}}({{lenghts}})</a>
+
+                                    <div class="ui-sl-group is-level-2 has-sep">
+                                        <ul style="margin-left: 10px;">
+                                            {% for subcat in subcategory %}
+                                            <li class="cat-1201"><a href="{% url 'products-page-subcat-detail' subcat select_city %}">{{subcat}}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                
+                                </li>
+                                {% endfor %}
+                                
+                                
+                            </ul>
+                        </div>
+
+                        <!----------------LES VILLES-------------------->
+
+                        <div style="display: block; margin-top: 45px;">
+                            <h5 class="text-uppercase mb-4" style="font-weight: 400; border-bottom: 1px solid black;">Villes</h5>
+                    
+                            <ul id="menu-content2" class="menu-content collapse show">
+                                <!-- Single Item -->
+                                <li data-toggle="collapse" data-target="#clothing" style="margin-bottom: 10px;">
+                                    <a href="{% url 'tous-villes' select_cat %}">Tous Villes({{vi_len}})</a>
+                                
+                                </li>
+                                
+                                {% for ville, length in villos.items %}
+                                <li data-toggle="collapse" data-target="#clothing" style="margin-bottom: 10px;">
+                                    <a href="{% url 'ville' ville select_cat %}" class="{{ville}}">{{ville}}({{length}})</a>
+                                
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                    </div>
+
+
+                
+                    <!-- SHOP LISTING-->
+                    <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-lg-4 mb-2 mb-lg-0">
+                                <p class="text-small text-muted mb-0"> Affichage des résultats 1-{{result_per_p}} sur {{found}}</p>
+                            </div>
+                            <div class="col-lg-2 mb-2 mb-lg-0">
+                                <p class="text-small mb-0" style="font-weight: 800; color: black;"><i class="far fa-object-group"></i> {{select_cat}}</p>
+                            </div>
+                            <div class="col-lg-2 mb-2 mb-lg-0">
+                                <p class="text-small mb-0" style="font-weight: 800; color: black;"><i class="fas fa-city"></i> {{select_city}}</p>
+                            </div>
+                            <div class="col-lg-4">
+                                <ul class="list-inline d-flex align-items-center justify-content-lg-end mb-0">
+                                    
+                                    <li class="list-inline-item">
+                                        <form action="." method="GET">
+                                            {% csrf_token %}
+                                            <select name="select_sort" id="select_sort">
+                                                <option selected value="sort_by">Sort by $</option>
+                                                <option value="Price: $ - $$">Prix:Bas-Haut</option>
+                                                <option value="Price: $$ - $">Prix:Haut-Bas</option>
+                                                <option value="newest">Newest Product</option>
+                                            </select>
+                                            <input type="submit" class="btn btn-secondary" style="margin-top: 1px;" value="Click">
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            {% if queryset %}
+                            <!-- PRODUCT-->
+                            {% for item, imos in queryset.items %}
+
+
+                            <div class="col-lg-4 col-sm-6">
+                                <div class="product text-center">
+                                <div class="mb-3 position-relative">
+                                    <!--<div class="badge text-white badge-primary" style="font-size: 15px; font-weight: 300;">New</div>-->
+                                    <a class="d-block" href="{{item.get_absolute_url}}">
+                                        <img class="img-fluid w-100 reg_img" src="{{ item.image.url }}" alt="...">
+                                    </a>
+                                    <!--<div class="product-overlay">
+                                    <ul class="mb-0 list-inline">
+                                        <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="{{item.get_add_to_like_url}}"><i class="far fa-heart"></i></a></li>
+                                        <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="{{item.get_add_to_cart_url}}">Ajoute au panier</a></li>
+                                        <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#{{item.slug}}" data-toggle="modal"><i class="fas fa-expand"></i></a></li>
+                                    </ul>
+                                    </div>-->
+                                </div>
+                                <h6> <a class="reset-anchor reg_title" href="{{item.get_absolute_url}}" style="font-weight: 500; font-size: 20px;">{{item.title}}</a></h6>
+                                <p class="small text-muted" style="font-size: 15px;">${{ item.price }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            
+                            
+                            </div>
+                            <!-- PAGINATION-->
+                            <nav aria-label="navigation" style="margin-left: 45%;">
+                                <ul class="pagination mt-50 mb-70">
+                                    {% if items.has_previous %}
+                                    <li class="page-item"><a class="page-link" href="?{{page_request_var}}={{ items.previous_page_number }}"><i class="fa fa-angle-left"></i></a></li>
+                                    {% endif %}
+                                    <li class="page-item"><a class="page-link" href="?{{page_request_var}}={{ items.number }}">{{ items.number }}</a></li>
+                                    {% if items.has_next %}
+                                    <li class="page-item"><a class="page-link" href="?{{page_request_var}}={{ items.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+
+                            {% else %}
+
+                            <div class="col-lg-12 col-sm-6" style="margin: 30px;">
+
+                                <div class="no-item-img" style="margin-right: 10px;"><img width="95" height="63" srcset="https://w.tonaton-st.com/dist/img/all/shop/empty-1x-6561cc5e.png 1x, https://w.tonaton-st.com/dist/img/all/shop/empty-2x-e92ec03a.png 1.3x">
+                                </div>
+                                <div class="no-items-content">
+                                    <h4>Aucun résultat trouvé.</h4>
+                                    <p>Cliquez sur 'Publier une annonce maintenant!' Bouton pour publier votre annonce.</p>
+                                    <a class="btn btn-primary post" href="{% url 'category' %}">Publiez votre annonce maintenant!</a>
+                                </div>
+                                
+                            </div>
+
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </section>
+        </div>
+    </div>
+  
+{% endblock %}

@@ -1,0 +1,211 @@
+{% extends 'baseshop.html' %}
+{% load static %}
+
+{% block extra_head %}
+
+<style>
+    
+    
+    /**/
+
+    .cat-cat-ville-name:link,
+    .cat-cat-ville-name:visited{
+        color: black;
+        background-color: rgba(255, 255, 255, 0.747);
+        padding: 5px;
+    }
+    .cat-cat-ville-name:hover,
+    .cat-cat-ville-name:active{
+        background-color: rgba(255, 255, 255, 0.747);
+        padding: 5px;
+    }
+
+    .home_level{
+      background-color: #dcb14a;
+    }
+
+    
+    
+</style>
+
+{% endblock %}
+
+{% block content %}
+    <!-- ##### Welcome Area Start ##### -->
+    <section class="welcome_area bg-img background-overlay" style="background-image: url(/static/img/bg-img/bg-1-ps-4.jpg);">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-8">
+                    <div class="hero-content">
+                        <h2 class="animated infinite fadeInLeft delay-2s" class="first_header_title">Bienvenue au plus grand marcher du Benin AXITWE</h2>
+                        <h3 class="animated infinite fadeInRight delay-2s" class="second_header_title">Achetez et vendez tout, des voitures d'occasion aux téléphones portables et aux ordinateurs, ou recherchez une propriété et plus au Benin!</h3>
+                        <div class="row mt-5">
+                            <div class="animated infinite fadeInUpBig delay-2s">
+                                <a class="link-front-page"  href="{% url 'category' %}" class="">Vendre</a>
+                            </div>
+                            <div class="animated infinite fadeInUpBig delay-2s">
+                                <a class="link-front-page" href="{% url 'products-page' %}">Voir Produits</a>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Welcome Area End ##### -->
+
+    <!-- ##### Top Catagory Area Start ##### -->
+    <div class="top_catagory_area section-padding-80 clearfix">
+        <div class="container">
+            <div class="row wow rotateInDownLeft animated" style="width: 100%;">
+                <h3 class="center-title">VISITEZ NOS TOP CATEGORY </h3>
+            </div>
+            <div class="row justify-content-center wow fadeIn animated">
+                <!-- Single Catagory -->
+
+                {% for cat in top_cat %}
+                <div class="col-12 col-sm-6 col-md-4 top_cat" style="margin-top: 12px;">
+                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url('{{ cat.image.url }}')">
+                        <div class="catagory-content">
+                            <a href="{% url 'products-page-detail' cat 'Villes' %}" class="cat-cat-ville-name">{{cat}}</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                
+                
+            </div>
+        </div>
+    </div>
+    <!-- ##### Top Catagory Area End ##### -->
+
+    <!-- ##### Tous Category ##### -->
+    <div class="cta-area">
+        <div class="container">
+            <div class="row wow rotateInDownLeft animated" style="width: 100%;">
+                <h3 class="center-title">VISITEZ TOUS NOS CATEGORY </h3>
+            </div>
+            <div class="row justify-content-center wow fadeIn animated">
+                <!-- Single Catagory -->
+
+                {% for cat in categories %}
+                <div class="col-12 col-sm-6 col-md-4 all_cat" style="margin-top: 12px;">
+                    <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url('{{ cat.image.url }}')">
+                        <div class="catagory-content">
+                            <a href="{% url 'products-page-detail' cat 'Villes' %}" class="cat-cat-ville-name">{{cat}}</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                
+                
+            </div>
+        </div>
+    </div>
+    <!-- ##### CTA Area End ##### -->
+
+    <!-- ##### New Arrivals Area Start ##### -->
+    <section class="new_arrivals_area section-padding-80 clearfix">
+        <div class="container">
+            <div class="row wow slideInLeft animated">
+                
+                <h3 class="center-title">SELECTIONNEZ UNE VILLE</h3>
+                
+            </div>
+            <div class="row justify-content-center wow fadeIn animated">
+                <!-- Single Catagory -->
+
+                {% for vi in villos %}
+                <div class="col-12 col-sm-6 col-md-4 cities" style="margin-top: 12px;">
+                <div class="single_catagory_area d-flex align-items-center justify-content-center bg-img" style="background-image: url('{{ vi.image.url }}')">
+                        <div class="catagory-content">
+                            <a href="{% url 'ville' vi 'Category' %}" class="cat-cat-ville-name">{{vi}}</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                
+                
+            </div>
+        </div>
+
+    </section>
+    <!-- ##### New Arrivals Area End ##### -->
+
+    <!-- ##### Brands Area Start ##### -->
+
+    <section class="py-5 bg-light">
+        <div class="container">
+          <div class="row text-center">
+            <div class="col-lg-4 mb-3 mb-lg-0 wow fadeInLeftBig animated">
+              <div class="d-inline-block">
+                <div class="media align-items-end" style="width: 250px;">
+                  <svg class="svg-icon svg-icon-big svg-icon-light" style="width: 80px;">
+                    <use xlink:href="#delivery-time-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" id="delivery-time-1">
+                            <title>Delivery Time</title>
+                            <desc>A line styled icon from Orion Icon Library.</desc>
+                            <path data-name="layer2" fill="none" stroke="#202020" stroke-miterlimit="10" d="M62 46v-5l-8-7h-8" stroke-linejoin="round" stroke-linecap="round" style="stroke:var(--layer1, #202020)"></path>
+                            <circle data-name="layer2" cx="24" cy="54" r="4" fill="none" stroke="#202020" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" style="stroke:var(--layer1, #202020)"></circle>
+                            <circle data-name="layer2" cx="54" cy="54" r="4" fill="none" stroke="#202020" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" style="stroke:var(--layer1, #202020)"></circle>
+                            <path data-name="layer2" fill="none" stroke="#202020" stroke-miterlimit="10" d="M50 54H28m-8 0h-4v-8h46v8h-4M24.5 24H46v22m-30 0V29.8M2 38h6m-2 8h2" stroke-linejoin="round" stroke-linecap="round" style="stroke:var(--layer1, #202020)"></path>
+                            <circle data-name="layer1" cx="14" cy="18" r="12" fill="none" stroke="#202020" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" style="stroke:var(--layer1, #202020)"></circle>
+                            <path data-name="layer1" fill="none" stroke="#202020" stroke-miterlimit="10" d="M14 12v8h6" stroke-linejoin="round" stroke-linecap="round" style="stroke:var(--layer1, #202020)"></path>
+                          </svg>
+                    </use>
+                  </svg>
+                  <div class="media-body text-left ml-3">
+                    <h6 class="text-uppercase mb-1">Gratuit, Facile et Rapide</h6>
+                    <p class="text-small mb-0 text-muted" style="line-height: 1.3rem;">Poster vos produits seulements. GBANDJO.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 mb-3 mb-lg-0 wow fadeInLeftBig animated">
+              <div class="d-inline-block">
+                <div class="media align-items-end" style="width: 250px;">
+                  <svg class="svg-icon svg-icon-big svg-icon-light" style="width: 80px;">
+                    <use xlink:href="#helpline-24h-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" id="helpline-24h-1">
+                            <title>Helpline 24h</title>
+                            <desc>A line styled icon from Orion Icon Library.</desc>
+                            <path data-name="layer2" d="M52.3 48.8c1.2.8 3 1.9 2.7 4.3S51 62 43 62s-17.7-6.3-26.2-14.8S2 28.9 2 21 9 9.3 10.9 9s3.6 1.5 4.3 2.7l6 9.2a4.3 4.3 0 0 1-1.1 5.8c-2.6 2.1-6.8 4.6 2.9 14.3s12.3 5.4 14.3 2.9a4.3 4.3 0 0 1 5.8-1.1z" fill="none" stroke="#202020" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" style="stroke:var(--layer1, #202020)"></path>
+                            <path data-name="layer1" fill="none" stroke="#202020" stroke-miterlimit="10" d="M54 2l-6 14h14m-4-6v12m-14 0H32l8.5-10v-.2A6 6 0 0 0 32 3.6" stroke-linejoin="round" stroke-linecap="round" style="stroke:var(--layer1, #202020)"></path>
+                          </svg>
+                    </use>
+                  </svg>
+                  <div class="media-body text-left ml-3">
+                    <h6 class="text-uppercase mb-1">24 x 7 service disponible</h6>
+                    <p class="text-small mb-0 text-muted" style="line-height: 1.3rem;">Vous pouvez nous <a>contacter</a> n'importe quand.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 wow fadeInLeftBig animated">
+              <div class="d-inline-block">
+                <div class="media align-items-end" style="width: 250px;">
+                  <svg class="svg-icon svg-icon-big svg-icon-light"  style="width: 80px;">
+                    <use xlink:href="#label-tag-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" id="label-tag-1">
+                            <title>Label Tag</title>
+                            <desc>A line styled icon from Orion Icon Library.</desc>
+                            <path data-name="layer2" fill="none" stroke="#202020" stroke-miterlimit="10" d="M25.6 61L3 38.4 38.4 3l21.2 1.4L61 25.6 25.6 61z" stroke-linejoin="round" stroke-linecap="round" style="stroke:var(--layer1, #202020)"></path>
+                            <circle data-name="layer2" cx="48" cy="15" r="4" fill="none" stroke="#202020" stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" style="stroke:var(--layer1, #202020)"></circle>
+                            <path data-name="layer1" fill="none" stroke="#202020" stroke-miterlimit="10" d="M31.3 21.4l11.3 11.3m-22.6 0l8.5 8.5M25.6 27l5.7 5.7" stroke-linejoin="round" stroke-linecap="round" style="stroke:var(--layer1, #202020)"></path>
+                          </svg>
+                    </use>
+                  </svg>
+                  <div class="media-body text-left ml-3">
+                    <h6 class="text-uppercase mb-1">Trouvez des acheteurs rapidement</h6>
+                    <p class="text-small mb-0 text-muted" style="line-height: 1.3rem;">Ici, vous trouvrez d'acheteur interesser.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+{% endblock %}

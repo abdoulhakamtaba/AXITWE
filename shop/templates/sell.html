@@ -1,0 +1,77 @@
+{% extends 'baseshop.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block extra_head %}
+
+<style>
+
+    .nb{
+        margin-top: 15px;
+        font-size: 17px;
+    }
+
+    .form-marg{
+        margin-bottom: 50px;
+    }
+    .form-marg-top{
+        margin-top: 50px;
+    }
+
+    .sell_level{
+        background-color: #dcb14a;
+    }
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="col-8 offset-2 pb-5" style="padding-top: 50px; background-color: rgb(255, 255, 255);">
+
+    <h3 style="font-weight: 300; margin-bottom: 30px; border-bottom: 1px solid black;">{{title }} un produit</h3>
+    
+    <form action="." method="POST" enctype="multipart/form-data" style="font-size: 16px;">
+        {% csrf_token %}
+        {{ form|crispy }}
+        
+        <!--<div class="col-12 mb-4 mt-4">
+            
+
+            <label for="country">Number <span>*</span></label>
+            <div class="row">
+                
+                <div style="width: 150px; margin: 5px 5px 5px 0px;">
+                    {{ form1.number_country }}
+                </div>
+                
+                <input type="text" class="form-control" id="country_number" name="country_number" placeholder="ex: 61858920" style="width: 250px; height: 40px; margin:5px 5px 5px 0px;">
+
+            </div>
+            
+        </div>
+
+        <div class="col-12 mb-3">
+            
+            <label for="country">Whatsapp Number <span>*</span></label>
+            <div class="row">
+                
+                <div style="width: 150px; margin: 5px 5px 5px 0px;">
+                    {{ form2.number_country1 }}
+                </div>
+                
+                <input type="text" class="form-control" id="country_number1" name="country_number1" placeholder="ex: 61858920" style="width: 250px; height: 40px; margin: 5px 5px 5px 0px;">
+            </div>
+            
+        </div>-->
+
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+
+    <div class="nb">
+        <p><strong>NB:</strong> A la page suivante vous allez poster les images du produit. MERCI</p>
+    </div>
+</div>
+
+{% endblock %}

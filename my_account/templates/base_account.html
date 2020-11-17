@@ -1,0 +1,179 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>Essence - Fashion Ecommerce Template</title>
+    {% block extra_head %}
+    {% endblock %}
+    <!-- Favicon  -->
+    <link rel="icon" href="{%static 'img/core-img/favicon.ico' %}">
+    <!--core css-->
+    <link rel="stylesheet" href="{%static 'css/core-style.css' %}">
+
+
+</head>
+
+<body>
+    
+    <!-- ##### Header Area Start ##### -->
+    <header class="header_area">
+        <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
+            <!-- Classy Menu -->
+            <nav class="classy-navbar" id="essenceNav">
+                <!-- Logo -->
+                <a class="nav-brand" href="index.html"><img src="{%static 'img/core-img/logo.png' %}" alt=""></a>
+                <!-- Navbar Toggler -->
+                <div class="classy-navbar-toggler">
+                    <span class="navbarToggler"><span></span><span></span><span></span></span>
+                </div>
+                <!-- Menu -->
+                <div class="classy-menu">
+                    <!-- close btn -->
+                    <div class="classycloseIcon">
+                        <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                    </div>
+                    <!-- Nav Start -->
+                    <div class="classynav">
+                        <ul>
+
+                            <li><a href="{% url 'shop-home' %}">Shop</a>
+                            </li>
+                            <li><a href="{% url 'products-page' %}">Products</a>
+                            </li>
+                            <li><a href="{% url 'shop-contact' %}">Contact</a></li>
+
+                            <li><a href="{% url 'category' %}">Sell</a></li>
+                        </ul>
+                    </div>
+                    <!-- Nav End -->
+                </div>
+            </nav>
+
+            <!-- Header Meta Data -->
+            <div class="header-meta d-flex clearfix justify-content-end">
+                <!-- Search Area -->
+                <div class="search-area">
+                    <form action="{% url 'search' %}">
+                        {% csrf_token %}
+                        <input type="search" name="q" id="headerSearch" placeholder="Type for search">
+                        <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </form>
+                </div>
+                <!-- Favourite Area -->
+                <div class="favourite-area">
+                    <a href="{% url 'like-summary' %}"><img src="{%static 'img/core-img/heart.svg' %}" alt=""></a>
+                </div>
+                <!-- User Login Info -->
+                <div class="user-login-info">
+                    <a href="{% url 'me-account' %}"><img src="{%static 'img/core-img/user.svg' %}" alt=""></a>
+                </div>
+                <!-- Cart Area -->
+                <div class="cart-area">
+                    <a href="{% url 'order-summary' %}" id="essenceCartBtn"><img src="{%static 'img/core-img/bag.svg' %}" alt=""> <span>{{ count_order_item }}</span></a>
+                </div>
+                
+
+                {% if request.user.is_authenticated %}
+                    <!-- Logout -->
+                    <div class="cart-area">
+                        <a href="{% url 'account_logout' %}" id="essenceCartBtn">Logout</a>
+                    </div>
+                {% else %}
+                    <!-- login -->
+                    <div class="cart-area">
+                        <a href="{% url 'account_login' %}" id="essenceCartBtn">Login</a>
+                    </div>
+                    <!-- sign up -->
+                    <div class="cart-area">
+                        <a href="{% url 'account_signup' %}" id="essenceCartBtn">SignUp</a>
+                    </div>
+                
+                {% endif %}
+            </div>
+
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+
+    <!-- ##### Right Side Cart Area ##### -->
+    <!-- ##### Right Side Cart End ##### -->
+
+
+    {% block content %}
+
+    {% endblock %}
+
+
+
+
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer_area clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-lg-4 footer-about wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
+                    <img class="logo-footer" src="{% static 'img/core-img/logo2.png' %}" alt="logo-footer" data-at2x="assets/img/logo.png">
+                    <p>
+                        We are a young company always looking for new and creative ideas to help you with our products in your everyday work.
+                    </p>
+                    <p><a href="#" style="color: rgb(141, 141, 141);">Axitwe-Ton marcher preferer</a></p>
+                </div>
+                <div class="col-md-4 col-lg-4 offset-lg-1 footer-contact wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">
+                    <h3 style="color: rgb(141, 141, 141); font-weight: 300;">Contact</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Via Rossini 10, 10136 Turin Italy</p>
+                    <p><i class="fas fa-phone"></i> Phone: (0039) 333 12 68 347</p>
+                    <p><i class="fas fa-envelope"></i> Email: <a href="mailto:hello@domain.com" style="color: rgb(141, 141, 141);">hello@domain.com</a></p>
+                </div>
+                <div class="col-md-4 col-lg-3 footer-social wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
+                    <h3 style="color: rgb(141, 141, 141); font-weight: 300;">Follow us</h3>
+                    <p>
+                        <a href="#" style="color: rgb(141, 141, 141); margin-right: 10px;"><i class="fab fa-facebook"></i></a> 
+                        <a href="#" style="color: rgb(141, 141, 141); margin-right: 10px;"><i class="fab fa-twitter"></i></a> 
+                        <a href="#" style="color: rgb(141, 141, 141); margin-right: 10px;"><i class="fab fa-google-plus-g"></i></a> 
+                        <a href="#" style="color: rgb(141, 141, 141); margin-right: 10px;"><i class="fab fa-instagram"></i></a> 
+                        <a href="#" style="color: rgb(141, 141, 141); margin-right: 10px;"><i class="fab fa-pinterest"></i></a>
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="row mt-5">
+                <div class="col-md-12 text-center">
+                    <p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> AXITWE "Le marché facile et simple". Tous droits réservés.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- jQuery (Necessary for All JavaScript Plugins) -->
+    <script src="{%static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
+    <!-- Popper js -->
+    <script src="{%static 'js/popper.min.js' %}"></script>
+    <!-- Bootstrap js -->
+    <script src="{%static 'js/bootstrap.min.js' %}"></script>
+    <!-- Plugins js -->
+    <script src="{%static 'js/plugins.js' %}"></script>
+    <!-- Classy Nav js -->
+    <script src="{%static 'js/classy-nav.min.js' %}"></script>
+    <!-- Active js -->
+    <script src="{%static 'js/active.js' %}"></script>
+
+
+
+    {% block extra_scripts %}
+    {% endblock extra_scripts %}
+</body>
+
+</html>
