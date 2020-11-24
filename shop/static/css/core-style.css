@@ -381,7 +381,14 @@ img {
         .header_area .favourite-area a span,
         .header_area .user-login-info a span,
         .header_area .cart-area a span {
-          font-size: 14px; } }
+          font-size: 14px; } 
+          
+
+        .header_area .cart-area {
+          margin-right: 30px;
+        }
+
+      }
   .header_area.sticky {
     position: fixed;
     z-index: 900;

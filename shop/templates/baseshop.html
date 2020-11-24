@@ -68,6 +68,7 @@
                             <li><a href="{% url 'shop-home' %}" style="color: black;" class="home_level">Home</a></li>
                             <li><a href="{% url 'products-page' %}" style="color: black;" class="all_products_level">Tous Produits</a>
                             </li>
+                            <li><a href="{% url 'category' %}" id="axitweCartBtn" style="color: black;" class="sell_level">Vendre</a></li>
 
                         </ul>
                     </div>
@@ -95,9 +96,9 @@
                 </div>
 
 
-                <div class="cart-area">
+                <!--<div class="cart-area">
                     <a href="{% url 'category' %}" id="axitweCartBtn" style="color: black;" class="sell_level">Vendre</a>
-                </div>
+                </div>-->
 
                 {% if request.user.is_authenticated %}
                     <!-- Logout -->
