@@ -1005,74 +1005,81 @@ def tous_villes(request, args):
 
 ########### PRODUCT DETAIL ############
 def product_detail(request, slug):
-    item_detail = get_object_or_404(Item, slug=slug)
-    sub_cat=Subcategory.objects.get(name_subcategory=item_detail.category)
 
-    photos = PostImage.objects.filter(item=item_detail)
+    try:
 
-    username = UserName.objects.filter(user=item_detail.user)
-    username_uno = username[0]
+        item_detail = get_object_or_404(Item, slug=slug)
+        sub_cat=Subcategory.objects.get(name_subcategory=item_detail.category)
 
-    
+        photos = PostImage.objects.filter(item=item_detail)
 
-    if item_detail.user.username == request.user.username:
-        yerp = True
-    else:
-        yerp = False
+        username = UserName.objects.filter(user=item_detail.user)
+        username_uno = username[0]
 
-    '''
-    #Whatsapp number
-    c_n = item_detail.whatsapp_number
-    numbo = ''
-    for every_el in c_n:
-        if every_el=='[' or every_el==' ' or every_el==',' or every_el==']':
-            continue
+        
+
+        if item_detail.user.username == request.user.username:
+            yerp = True
         else:
-            numbo= numbo+every_el
+            yerp = False
 
-    a = numbo.replace('(', '').replace(')', '')
+        '''
+        #Whatsapp number
+        c_n = item_detail.whatsapp_number
+        numbo = ''
+        for every_el in c_n:
+            if every_el=='[' or every_el==' ' or every_el==',' or every_el==']':
+                continue
+            else:
+                numbo= numbo+every_el
 
-    int_whatsapp_numbo = int(a)
+        a = numbo.replace('(', '').replace(')', '')
+
+        int_whatsapp_numbo = int(a)
 
 
-    #phone number
-    c_n = item_detail.call_number
-    c_c = c_n.split(',')[0]
-    co_n = c_n.split(',')[1]
+        #phone number
+        c_n = item_detail.call_number
+        c_c = c_n.split(',')[0]
+        co_n = c_n.split(',')[1]
 
-    country_c = c_c.replace('(', '')
-    country_n = co_n.replace(')', '')
+        country_c = c_c.replace('(', '')
+        country_n = co_n.replace(')', '')
 
-    #print(country_c)
-    #print(country_n)
+        #print(country_c)
+        #print(country_n)
 
-    complete_call_numbo = '+'+country_c + country_n
-    '''
+        complete_call_numbo = '+'+country_c + country_n
+        '''
 
-    querysetos = {}
+        querysetos = {}
 
-    related_products = Item.objects.filter(category=sub_cat).order_by('-timestamp')[0:4]
-    for every_it in related_products:
-        imo = PostImage.objects.filter(item=every_it)
-        querysetos[every_it]=imo
+        related_products = Item.objects.filter(category=sub_cat).order_by('-timestamp')[0:4]
+        for every_it in related_products:
+            imo = PostImage.objects.filter(item=every_it)
+            querysetos[every_it]=imo
+        
+        context = {
+            'item_detail': item_detail,
+            'sub_cat':sub_cat,
+            'cat':sub_cat.category,
+            #'item_color_variations':item_color_variations,
+            #'item_size_variations':item_size_variations,
+            'photos': photos,
+            #'int_whatsapp_numbo':int_whatsapp_numbo,
+            #'complete_call_numbo':complete_call_numbo,
+            'related_products':related_products,
+            'querysetos':querysetos,
+            'usernamo':username_uno,
+            'yerp':yerp,
+            #'variation':variation,
+        }
+
+        return render(request, 'product-detail.html', context)
     
-    context = {
-        'item_detail': item_detail,
-        'sub_cat':sub_cat,
-        'cat':sub_cat.category,
-        #'item_color_variations':item_color_variations,
-        #'item_size_variations':item_size_variations,
-        'photos': photos,
-        #'int_whatsapp_numbo':int_whatsapp_numbo,
-        #'complete_call_numbo':complete_call_numbo,
-        'related_products':related_products,
-        'querysetos':querysetos,
-        'usernamo':username_uno,
-        'yerp':yerp,
-        #'variation':variation,
-    }
-
-    return render(request, 'product-detail.html', context)
+    except:
+        redirect('shop-home')
+        return render(request, 'index.html')
 
 ######## ORDER SUMMARY ###########
 
@@ -1088,8 +1095,40 @@ def is_valid_form(values):
 
 
 
+##CHOICES
+'''
+from itertools import accumulate as _accumulate, repeat as _repeat
+from bisect import bisect as _bisect
+import random
+def choices(population, weights=None, *, cum_weights=None, k=1):
+    """Return a k sized list of population elements chosen with replacement.
+    If the relative weights or cumulative weights are not specified,
+    the selections are made with equal probability.
+    """
+    n = len(population)
+    if cum_weights is None:
+        if weights is None:
+            _int = int
+            n += 0.0    # convert to float for a small speed improvement
+            return [population[_int(random.random() * n)] for i in _repeat(None, k)]
+        cum_weights = list(_accumulate(weights))
+    elif weights is not None:
+        raise TypeError('Cannot specify both weights and cumulative weights')
+    if len(cum_weights) != n:
+        raise ValueError('The number of weights does not match the population')
+    bisect = _bisect
+    total = cum_weights[-1] + 0.0   # convert to float
+    hi = n - 1
+    return [population[bisect(cum_weights, random.random() * total, 0, hi)]
+            for i in _repeat(None, k)]
+'''
+
+
 ########## CREAT SLUG CODE ###############
 def create_slug_code():
+
+    #return ''.join(choices(string.ascii_lowercase + string.digits, k=15))
+
     return ''.join(random.choices(string.ascii_lowercase + string.digits, k=15))
 
 

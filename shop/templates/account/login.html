@@ -42,7 +42,7 @@
     
           {% else %}
           <p>{% blocktrans %}Si vous n'avez pas encore créé de compte, veuillez d'abord vous 
-          <a href="{{ signup_url }}">inscrire</a> .{% endblocktrans %}</p>
+          <a href="{{ signup_url }}" style="font-weight: 900; background-color: #dcb14a; padding: 3px; box-shadow: 1px 1px 3px rgb(58, 58, 58);">inscrire</a> .{% endblocktrans %}</p>
           {% endif %}
     
           <form class="login" method="POST" action="{% url 'account_login' %}">

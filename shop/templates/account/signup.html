@@ -19,7 +19,7 @@
         
           <h1>{% trans "S'inscrire" %}</h1>
 
-          <p>{% blocktrans %}Vous avez déjà un compte? Alors veuillez vous <a href="{{ login_url }}">connecter</a>.{% endblocktrans %}</p>
+          <p>{% blocktrans %}Vous avez déjà un compte? Alors veuillez vous <a href="{{ login_url }}" style="font-weight: 900; background-color: #dcb14a; padding: 3px; box-shadow: 1px 1px 3px rgb(58, 58, 58);">connecter</a>.{% endblocktrans %}</p>
 
           <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
             {% csrf_token %}
